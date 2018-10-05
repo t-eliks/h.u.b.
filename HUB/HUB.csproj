@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CAF33D18-81D5-4254-B004-FE0BA10825D3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>HUB</RootNamespace>
+    <AssemblyName>HUB</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icons\tray.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Uni\OOP\S2\LW\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Uni\OOP\S2\LW\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.1.1101, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Uni\OOP\S2\LW\packages\MaterialDesignThemes.2.4.1.1101\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Uni\OOP\S2\LW\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="UI\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\AddEditTitleBlockTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Templates\ButtonDockTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\CheckBoxTextBlockTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\ContextMenuOptionsTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\ListBoxItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\ListBoxTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\ShadowedTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\TextBlockButtonTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\TextBlockTextBoxTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Templates\ThreeColorPicksTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Blend\MainView_Blend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogViews\AddEditEventDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogViews\AddGameAlternateDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogViews\AddWebsiteAlternateDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogViews\BaseDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DialogViews\ImageCropDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogViews\WebsiteDetailsDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\SelectionCanvas.cs" />
+    <Compile Include="Converters\StringToColorConverter.cs" />
+    <Compile Include="Interfaces\IDialogWindow.cs" />
+    <Compile Include="Logic\BindingProxy.cs" />
+    <Compile Include="Converters\BorderClipConverter.cs" />
+    <Compile Include="Converters\DataTypeConverter.cs" />
+    <Compile Include="Logic\Dialog\DialogResults.cs" />
+    <Compile Include="Logic\Dialog\DialogService.cs" />
+    <Compile Include="Logic\Dialog\DialogRoutedEventArgs.cs" />
+    <Compile Include="Logic\FileSelectHandler.cs" />
+    <Compile Include="Logic\IconHandler.cs" />
+    <Compile Include="Logic\ObjectSerializationHandler.cs" />
+    <Compile Include="Logic\RelayCommand.cs" />
+    <Compile Include="Models\DataContainer.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\VideoGame.cs" />
+    <Compile Include="Models\TVShow.cs" />
+    <Compile Include="Models\Website.cs" />
+    <Compile Include="UI\Templates\AddEditTitleBlockTemplate.xaml.cs">
+      <DependentUpon>AddEditTitleBlockTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\ButtonDockTemplate.xaml.cs">
+      <DependentUpon>ButtonDockTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\CheckBoxTextBlockTemplate.xaml.cs">
+      <DependentUpon>CheckBoxTextBlockTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\ContextMenuOptionsTemplate.xaml.cs">
+      <DependentUpon>ContextMenuOptionsTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\ListBoxItemTemplate.xaml.cs">
+      <DependentUpon>ListBoxItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\ListBoxTemplate.xaml.cs">
+      <DependentUpon>ListBoxTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\ShadowedTextBox.xaml.cs">
+      <DependentUpon>ShadowedTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\TextBlockButtonTemplate.xaml.cs">
+      <DependentUpon>TextBlockButtonTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\TextBlockTextBoxTemplate.xaml.cs">
+      <DependentUpon>TextBlockTextBoxTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Templates\ThreeColorPicksTemplate.xaml.cs">
+      <DependentUpon>ThreeColorPicksTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DialogViewModels\AddEditEventViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\AddEditObjectViewModelBase.cs" />
+    <Compile Include="ViewModels\DialogViewModels\AddGameDialogViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\AddWebsiteDialogViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\DialogViewModelBase.cs" />
+    <Compile Include="ViewModels\DialogViewModels\ImageCropDialogViewModel.cs" />
+    <Compile Include="ViewModels\DialogViewModels\WebsiteDetailsViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Models\ContextMenuItem.cs" />
+    <Compile Include="Views\Blend\MainView_Blend.xaml.cs">
+      <DependentUpon>MainView_Blend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\AddEditEventDialogView.xaml.cs">
+      <DependentUpon>AddEditEventDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\AddGameAlternateDialogWindow.xaml.cs">
+      <DependentUpon>AddGameAlternateDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\AddWebsiteAlternateDialogWindow.xaml.cs">
+      <DependentUpon>AddWebsiteAlternateDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\BaseDialogWindow.xaml.cs">
+      <DependentUpon>BaseDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\ImageCropDialogView.xaml.cs">
+      <DependentUpon>ImageCropDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogViews\WebsiteDetailsDialogView.xaml.cs">
+      <DependentUpon>WebsiteDetailsDialogView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Fonts\Ubuntu-R.ttf" />
+    <Resource Include="Fonts\Quicksand-Regular.otf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\bg.jpg" />
+    <Resource Include="Icons\controller.png" />
+    <Resource Include="Icons\misc.png" />
+    <Resource Include="Icons\wireless.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\noimage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\arrowleft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\tray.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\detailimage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\tvshow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="randomctrlx.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\addevent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\eventrefresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\gamebg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\evntbg.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

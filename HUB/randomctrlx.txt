@@ -1,0 +1,9 @@
+﻿<MenuItem Header="Open directory" Command="{Binding Source={StaticResource Proxy}, Path=Data.OpenGameDirectoryCommand, Mode=OneWay}" 
+CommandParameter="{Binding Source={StaticResource ProxySelectedItem}, Path=Data, Mode=OneWay}"/>
+
+<Separator/>
+<MenuItem Header="Edit" Command="{Binding Source={StaticResource Proxy}, Path=Data.EditObjectCommand, 
+Mode=OneWay}" CommandParameter="{Binding Source={StaticResource ProxySelectedItem}, Path=Data, Mode=OneWay}"/>
+
+<MenuItem Header="Remove" Command="{Binding Source={StaticResource Proxy}, Path=Data.RemoveObjectCommand, 
+Mode=OneWay}" CommandParameter="{Binding Source={StaticResource ProxySelectedItem}, Path=Data, Mode=OneWay}"/>

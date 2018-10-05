@@ -1,0 +1,301 @@
+﻿<Window x:Class="HUB.Views.Blend.MainView_Blend"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Templates="clr-namespace:HUB.UI.Templates"
+        xmlns:DialogViews="clr-namespace:HUB.Views.DialogViews"
+        xmlns:Logic="clr-namespace:HUB.Logic"
+        mc:Ignorable="d"
+        Title="HUB" WindowStartupLocation="CenterScreen" Icon="/HUB;component/Icons/tray.ico"
+        WindowStyle="SingleBorderWindow" Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=WindowHeight, Mode=TwoWay}" 
+    Width="{Binding RelativeSource={RelativeSource Mode=Self}, Path=WindowWidth, Mode=TwoWay}">
+    
+    <!-- Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=WindowHeight, Mode=TwoWay}" 
+    Width="{Binding RelativeSource={RelativeSource Mode=Self}, Path=WindowWidth, Mode=TwoWay}" -->
+
+    <!-- Height="830" Width="1400" -->
+
+    <DockPanel Background="{StaticResource OffWhiteBackgroundBrush}">
+        <Border BorderBrush="Black" BorderThickness="2">
+            <Expander x:Name="menuPanel" ExpandDirection="Right">
+                <Expander.Resources>
+                    <Storyboard TargetName="addEditEventDialog" x:Key="addEventRetract">
+                        <DoubleAnimation Storyboard.TargetProperty="Height" From="380" To="0" Duration="0:0:.4" AccelerationRatio=".2">
+                            <DoubleAnimation.EasingFunction>
+                                <PowerEase EasingMode="EaseIn"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                    </Storyboard>
+                    <Storyboard TargetName="addEditEventDialog" x:Key="addEventExpand">
+                        <DoubleAnimation Storyboard.TargetProperty="Height" From="0" To="380" Duration="0:0:.4" AccelerationRatio=".2">
+                            <DoubleAnimation.EasingFunction>
+                                <PowerEase EasingMode="EaseIn"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                    </Storyboard>
+                </Expander.Resources>
+                <Expander.Header>
+                    <TextBlock Text="{Binding EventHeader}" Style="{StaticResource TextLabel}" Foreground="{StaticResource OffWhiteBackgroundBrush}" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="-90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <DockPanel Width="250">
+                    <DockPanel.Background>
+                        <SolidColorBrush Color="{StaticResource BlackBackgroundColor}" Opacity="0.8"/>
+                    </DockPanel.Background>
+                    <DockPanel HorizontalAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Top" Height="80">
+                        <Button BorderBrush="Transparent" Width="64" Height="64" Command="{Binding RefreshEventsCommand}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/icons/eventrefresh.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                        <Button BorderBrush="Transparent" Width="64" Height="64" Command="{Binding SetUpEventDialogCommand}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/icons/addevent.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                    </DockPanel>
+                    <DialogViews:AddEditEventDialogView DockPanel.Dock="Top" x:Name="addEditEventDialog" VerticalAlignment="Top" Visibility="Collapsed"/>
+                        <ListBox x:Name="eventListBox" ItemsSource="{Binding EventsSorted}">
+                        <ListBox.Resources>
+                            <Logic:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+                            <Logic:BindingProxy x:Key="ProxySelectedItem" Data="{Binding ElementName=eventListBox, Path=SelectedItem, Mode=OneWay}"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <ItemContainerTemplate>
+                                <StackPanel Background="Transparent" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualWidth}">
+                                    <TextBlock Style="{StaticResource SettingsTextBlock}" FontFamily="{DynamicResource Ubuntu}" Foreground="{StaticResource OffWhiteBackgroundBrush}" Text="{Binding Text}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="24"/>
+                                    <TextBlock Style="{StaticResource SettingsTextBlock}" Foreground="{StaticResource OffWhiteBackgroundBrush}" Text="{Binding Subtext}" HorizontalAlignment="Left" FontSize="18"/>
+                                    <TextBlock Style="{StaticResource SettingsTextBlock}" Text="{Binding Remainder}" HorizontalAlignment="Left" FontSize="12" FontStyle="Italic" Foreground="Gray"/>
+                                    <StackPanel.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Edit" Command="{Binding Source={StaticResource Proxy}, Path=Data.EditEventCommand}" CommandParameter="{Binding Source={StaticResource ProxySelectedItem}, Path=Data}"/>
+                                            <MenuItem Header="Remove" Command="{Binding Source={StaticResource Proxy}, Path=Data.RemoveEventCommand}" CommandParameter="{Binding Source={StaticResource ProxySelectedItem}, Path=Data}"/>
+                                        </ContextMenu>
+                                    </StackPanel.ContextMenu>
+                                </StackPanel>
+                            </ItemContainerTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </Expander>
+        </Border>
+        <Grid x:Name="mainPanel">
+            <TabControl Grid.Column="1" Background="Transparent" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource TabItemStyle}">
+                <TabControl.Template>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="8*"/>
+                            </Grid.RowDefinitions>
+                            <UniformGrid Columns="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Children.Count}" Background="Transparent" Grid.Row="0" IsItemsHost="True"/>
+                            <Border Grid.Row="2">
+                                <ContentPresenter Grid.Row="1" ContentSource="SelectedContent"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </TabControl.Template>
+                <TabItem>
+                    <TabItem.Header>
+                        <Image Source="/icons/controller.png"/>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="addGameDialogView" Visibility="Collapsed">
+                            <ScrollViewer.Resources>
+                                <Storyboard TargetName="addGameDialogView" x:Key="addGameRetract">
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}, Path=ActualHeight}" To="0" Duration="0:0:.4" AccelerationRatio=".2">
+                                        <DoubleAnimation.EasingFunction>
+                                            <PowerEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                                <Storyboard TargetName="addGameDialogView" x:Key="addGameExpand">
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="0" To="{Binding ElementName=gameGrid, Path=ActualHeight}" Duration="0:0:.4" AccelerationRatio=".2">
+                                        <DoubleAnimation.EasingFunction>
+                                            <PowerEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </ScrollViewer.Resources>
+                            <DialogViews:AddGameAlternateDialogWindow/>
+                        </ScrollViewer>
+                        <Grid x:Name="gameGrid" Visibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Double-Click to launch application" Style="{StaticResource BooleanToVisibilityStyle}" FontSize="12" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Grid Background="Transparent" Grid.Row="1">
+                                <TextBlock Text="No games added yet." FontStyle="Italic" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding PopulatedGameList, Mode=OneWay}" Value="False">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Templates:ListBoxTemplate ItemsSource="{Binding Games}" ListBoxItemWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemWidth}" ListBoxItemHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemHeight}" ListBoxItemImageHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemImageHeight}"/>
+                                </Grid>
+                            </Grid>
+                            <DockPanel HorizontalAlignment="Stretch" Grid.Row="2">
+                                <DockPanel.Background>
+                                    <SolidColorBrush Color="LightGray" Opacity="0.3"/>
+                                </DockPanel.Background>
+                                <StackPanel Margin="15" Orientation="Horizontal">
+                                    <TextBlock FontFamily="{DynamicResource Quicksand}" Foreground="Black" VerticalAlignment="Center" FontSize="18" Text="Filter out : "/>
+                                    <CheckBox FontFamily="{DynamicResource Quicksand}" x:Name="gamesfilteredcheckbox" Foreground="Black" Uid="0" Margin="10" Background="Black" FontSize="18" Content="Uninstalled games" Command="{Binding ApplyFilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="15" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                                    <Button Style="{StaticResource IconButton}" Command="{Binding SetUpGameDialogCommand}">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Icons/add.png" Stretch="None"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Command="{Binding SerializeObjectsCommand, Mode=OneWay}" Style="{StaticResource SaveButton}" HorizontalAlignment="Right">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Icons/save.png" Stretch="None"/>
+                                        </Button.Background>
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Image Source="/icons/wireless.png"/>
+                    </TabItem.Header>
+                    <DockPanel x:Name="websiteDockPanel">
+                        <DockPanel.Resources>
+                            <Storyboard TargetName="websiteDetailsDialogView" x:Key="websiteDetailsRetract">
+                                <DoubleAnimation Storyboard.TargetProperty="Height" From="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DockPanel}, Path=ActualHeight}" To="0" Duration="0:0:.4" AccelerationRatio=".2">
+                                    <DoubleAnimation.EasingFunction>
+                                        <PowerEase EasingMode="EaseIn"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                            <Storyboard TargetName="websiteDetailsDialogView" x:Key="websiteDetailsExpand">
+                                <DoubleAnimation Storyboard.TargetProperty="Height" From="0" To="{Binding ElementName=websiteGrid, Path=ActualHeight}" Duration="0:0:.4" AccelerationRatio=".2">
+                                    <DoubleAnimation.EasingFunction>
+                                        <PowerEase EasingMode="EaseIn"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </DockPanel.Resources>
+                        <DialogViews:WebsiteDetailsDialogView x:Name="websiteDetailsDialogView" DockPanel.Dock="Top" Height="0" Visibility="Collapsed"/>
+                        <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="addWebsiteDialogView" Visibility="Collapsed">
+                            <ScrollViewer.Resources>
+                                <Storyboard TargetName="addWebsiteDialogView" x:Key="addWebsiteRetract">
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}, Path=ActualHeight}" To="0" Duration="0:0:.4" AccelerationRatio=".2">
+                                        <DoubleAnimation.EasingFunction>
+                                            <PowerEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                                <Storyboard TargetName="addWebsiteDialogView" x:Key="addWebsiteExpand">
+                                    <DoubleAnimation Storyboard.TargetProperty="Height" From="0" To="{Binding ElementName=websiteGrid, Path=ActualHeight}" Duration="0:0:.4" AccelerationRatio=".2">
+                                        <DoubleAnimation.EasingFunction>
+                                            <PowerEase EasingMode="EaseIn"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </ScrollViewer.Resources>
+                            <DialogViews:AddWebsiteAlternateDialogWindow/>
+                        </ScrollViewer>
+                        <Grid x:Name="websiteGrid" Visibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Double-Click to open website" Style="{StaticResource BooleanToVisibilityStyle}" FontSize="12" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Grid Background="Transparent" Grid.Row="1">
+                                <TextBlock Text="No websites added yet." FontStyle="Italic" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding PopulatedWebsiteList, Mode=OneWay}" Value="False">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Templates:ListBoxTemplate ItemsSource="{Binding Websites}" ListBoxItemWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemWidth}" ListBoxItemHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemHeight}" ListBoxItemImageHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemImageHeight}"/>
+                            </Grid>
+                            <DockPanel HorizontalAlignment="Stretch" Grid.Row="2">
+                                <DockPanel.Background>
+                                    <SolidColorBrush Color="LightGray" Opacity="0.3"/>
+                                </DockPanel.Background>
+                                <StackPanel Margin="15" Orientation="Horizontal">
+                                    <TextBlock FontFamily="{DynamicResource Quicksand}" Foreground="Black" VerticalAlignment="Center" FontSize="18" Text="Filter out : "/>
+                                    <CheckBox FontFamily="{DynamicResource Quicksand}" x:Name="regsitefiltercheckbox" Foreground="Black" Uid="0" Margin="10" Background="Black" FontSize="18" Content="Regular" Command="{Binding ApplyFilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+                                    <CheckBox FontFamily="{DynamicResource Quicksand}" x:Name="showfiltercheckbox" Foreground="Black" Uid="1" Margin="10" Background="Black" FontSize="18" Content="TV Show" Command="{Binding ApplyFilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="15" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                                    <Button Style="{StaticResource IconButton}" Command="{Binding SetUpWebsiteDialogCommand}">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Icons/add.png" Stretch="None"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Command="{Binding SerializeObjectsCommand, Mode=OneWay}" Style="{StaticResource SaveButton}" HorizontalAlignment="Right">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Icons/save.png" Stretch="None"/>
+                                        </Button.Background>
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Image Source="/icons/misc.png"/>
+                    </TabItem.Header>
+                    <Grid>
+                        <TextBlock Text="Hello"/>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <Image Source="/icons/settings.png"/>
+                    </TabItem.Header>
+                    <TabControl FontFamily="{DynamicResource Quicksand}" Margin="30" TabStripPlacement="Left">
+                        <TabItem Header="Appearance" FontSize="24" Height="100">
+                            <StackPanel>
+                                <Templates:TextBlockButtonTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="Game Background" ButtonContent="Choose" ButtonUid="gamebackground" OnButtonClicked="ChooseBackground_Button"/>
+                                <Templates:TextBlockButtonTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="Website Background" ButtonContent="Choose" ButtonUid="websitebackground" OnButtonClicked="ChooseBackground_Button"/>
+                                <Templates:TextBlockButtonTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="Event Menu Background" ButtonContent="Choose" ButtonUid="eventbackground" OnButtonClicked="ChooseBackground_Button"/>
+                                <Templates:TextBlockTextBoxTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="List item width" TextBoxText="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemWidth, Mode=TwoWay}"/>
+                                <Templates:TextBlockTextBoxTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="List item height" TextBoxText="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemHeight, Mode=TwoWay}"/>
+                                <Templates:TextBlockTextBoxTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="List item image height" TextBoxText="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=ListBoxItemImageHeight, Mode=TwoWay}"/>
+                                <Templates:TextBlockTextBoxTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="Application Window Width" TextBoxText="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=WindowWidth, Mode=TwoWay}"/>
+                                <Templates:TextBlockTextBoxTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="Application Window Height" TextBoxText="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=WindowHeight, Mode=TwoWay}"/>
+                                <Button Content="Save" Style="{StaticResource SettingsButton}" HorizontalAlignment="Center" Click="Save_Settings"/>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Behaviour" FontSize="24" Height="100">
+                            <StackPanel>
+                                <Templates:CheckBoxTextBlockTemplate Text="Minimize to tray" CheckBoxIsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=MinimizeToTray, Mode=TwoWay}"/>
+                                <Templates:CheckBoxTextBlockTemplate Text="Close on game launch" CheckBoxIsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=CloseOnLaunch, Mode=TwoWay}"/>
+                                <Templates:CheckBoxTextBlockTemplate Text="Close on website launch" CheckBoxIsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=WebsiteCloseOnLaunch, Mode=TwoWay}"/>
+                                <Templates:TextBlockButtonTemplate Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=ActualWidth}" Height="60" Text="Clear unused thumbnails" ButtonContent="Clear" OnButtonClicked="Clear_Thumbnails"/>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>

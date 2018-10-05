@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="HUB.Views.DialogViews.AddEditEventDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:DialogVM="clr-namespace:HUB.ViewModels.DialogViewModels"
+             xmlns:local="clr-namespace:HUB.Views.DialogViews"
+             mc:Ignorable="d">
+
+    <StackPanel>
+        <TextBlock Style="{StaticResource TextLabel}" Text="Event: " Foreground="{StaticResource OffWhiteBackgroundBrush}" HorizontalAlignment="Center" Width="Auto" Height="Auto" FontSize="14"/>
+        <TextBox Text="{Binding Text}" Margin="2" Background="{StaticResource OffWhiteBackgroundBrush}"/>
+        <TextBlock Style="{StaticResource TextLabel}" Text="Subtext: " Foreground="{StaticResource OffWhiteBackgroundBrush}" HorizontalAlignment="Center" Width="Auto" Height="Auto" FontSize="14"/>
+        <TextBox Text="{Binding Subtext}" Margin="2" Background="{StaticResource OffWhiteBackgroundBrush}"/>
+        <TextBlock Style="{StaticResource TextLabel}" Text="Date: " Foreground="{StaticResource OffWhiteBackgroundBrush}" HorizontalAlignment="Center" Width="Auto" Height="Auto" FontSize="14"/>
+        <DatePicker SelectedDate="{Binding Date}" Foreground="Black" Background="{StaticResource OffWhiteBackgroundBrush}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Style="{StaticResource TextLabel}" Text="Hour: " Foreground="{StaticResource OffWhiteBackgroundBrush}" HorizontalAlignment="Center" Width="Auto" Height="Auto" FontSize="14"/>
+                <TextBox Text="{Binding Hour}" Margin="2" Background="{StaticResource OffWhiteBackgroundBrush}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock Style="{StaticResource TextLabel}" Text="Minutes: " Foreground="{StaticResource OffWhiteBackgroundBrush}" HorizontalAlignment="Center" Width="Auto" Height="Auto" FontSize="14"/>
+                <TextBox Text="{Binding Minutes}" Margin="2" Background="{StaticResource OffWhiteBackgroundBrush}"/>
+            </StackPanel>
+        </Grid>
+        <Button BorderBrush="Transparent" Background="Black" Width="70" Margin="10" Command="{Binding AddEventCommand}">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Content" Value="Add"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding EditMode}" Value="True">
+                            <Setter Property="Content" Value="Save"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+    </StackPanel>
+    
+</UserControl>

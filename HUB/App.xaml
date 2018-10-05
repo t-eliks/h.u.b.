@@ -1,0 +1,56 @@
+﻿<Application x:Class="HUB.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HUB"
+             xmlns:Converters="clr-namespace:HUB.Converters"
+             xmlns:Logic="clr-namespace:HUB.Logic"
+             xmlns:DialogViews="clr-namespace:HUB.Views.DialogViews"
+             xmlns:DialogViewModels="clr-namespace:HUB.ViewModels.DialogViewModels"
+             StartupUri="Views/Blend/MainView_Blend.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            <!-- Dialog Data Templates -->
+
+            <DataTemplate DataType="{x:Type DialogViewModels:AddGameDialogViewModel}">
+                <DialogViews:AddGameAlternateDialogWindow/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type DialogViewModels:AddWebsiteDialogViewModel}">
+                <DialogViews:AddWebsiteAlternateDialogWindow/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type DialogViewModels:ImageCropDialogViewModel}">
+                <DialogViews:ImageCropDialogView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type DialogViewModels:WebsiteDetailsViewModel}">
+                <DialogViews:WebsiteDetailsDialogView/>
+            </DataTemplate>
+
+            <!-- Miscellaneous Resources -->
+            
+            <BitmapImage UriSource="/icons/noimage.png" x:Key="DefaultImage"/>
+            
+            <!-- Fonts -->
+            
+            <FontFamily x:Key="Ubuntu">/Fonts/#Ubuntu</FontFamily>
+            <FontFamily x:Key="Quicksand">/Fonts/#Quicksand</FontFamily>
+
+            <!-- Converters -->
+            <Converters:StringToColorConverter x:Key="StringToColorConverter"/>
+            <Converters:BorderClipConverter x:Key="BorderClipConverter"/>
+            <Converters:DataTypeConverter x:Key="DataTypeConverter"/>
+
+            <!-- Binding proxy -->
+            <Logic:BindingProxy x:Key="BindingProxy"/>
+
+            <!-- Material Design -->
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HUB;component/UI/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

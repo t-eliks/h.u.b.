@@ -1,0 +1,171 @@
+﻿<UserControl x:Class="HUB.Views.DialogViews.WebsiteDetailsDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Templates="clr-namespace:HUB.UI.Templates"
+             xmlns:local="clr-namespace:HUB.Views.DialogViews"
+             xmlns:Converters="clr-namespace:HUB.Converters"
+             mc:Ignorable="d" 
+             Background="Transparent">
+    <UserControl.Resources>
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" x:Key="TextBlockStyle">
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="FontSize" Value="48"/>
+            <Setter Property="FontFamily" Value="{DynamicResource Quicksand}"/>
+            <Setter Property="Margin" Value="10, 10, 5, 0"/>
+        </Style>
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" x:Key="LesserTextStyle">
+            <Setter Property="Margin" Value="10, 5, 5, 0"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}" x:Key="SmallerFontTextBlockStyle">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="Width" Value="215"/>
+        </Style>
+
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}" x:Key="ImageButton">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="Height" Value="48"/>
+        </Style>
+
+        <Converters:BorderClipConverter x:Key="BorderClipConverter"/>
+
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.Background>
+            <ImageBrush ImageSource="{Binding DetailsImage}"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="15">
+            <Border Name="mask" CornerRadius="12">
+                <Border.Background>
+                    <SolidColorBrush Color="{StaticResource OffWhiteBackgroundColor}" Opacity="0.6"/>
+                </Border.Background>
+            </Border>
+            <DockPanel>
+                <DockPanel.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=mask}"/>
+                </DockPanel.OpacityMask>
+            </DockPanel>
+            <DockPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Border Name="imagemask" Width="245" Background="{StaticResource OffWhiteBackgroundBrush}" BorderThickness="0" HorizontalAlignment="Left" CornerRadius="12"/>
+                        <Image Source="{Binding DisplayImage}" HorizontalAlignment="Left">
+                            <Image.Stretch>Fill</Image.Stretch>
+                            <Image.OpacityMask>
+                                <VisualBrush Visual="{Binding ElementName=imagemask}"/>
+                            </Image.OpacityMask>
+                        </Image>
+                    </Grid>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Style="{StaticResource SettingsTextBlock}" Text="{Binding Title}"/>
+                        <TextBlock Height="80" Style="{StaticResource SettingsTextBlock}" TextTrimming="WordEllipsis" TextWrapping="Wrap" Text="{Binding Description}"/>
+                        <TextBlock Style="{StaticResource SettingsTextBlock}" Text="{Binding Link}" FontSize="11" Foreground="Gray"/>
+                    </StackPanel>
+                </Grid>
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="15">
+            <Border Name="amask" CornerRadius="12">
+                <Border.Background>
+                    <SolidColorBrush Color="{StaticResource OffWhiteBackgroundColor}"  Opacity="0.6"/>
+                </Border.Background>
+            </Border>
+            <DockPanel>
+                <DockPanel.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=amask}"/>
+                </DockPanel.OpacityMask>
+            </DockPanel>
+            <DockPanel>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Stats" Style="{StaticResource SettingsTextBlock}" HorizontalAlignment="Center" Height="Auto"/>
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <DockPanel Height="48">
+                                <TextBlock Style="{StaticResource SettingsTextBlock}" Text="Current Episode" Width="250"/>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Button Style="{StaticResource ImageButton}" Command="{Binding DecreaseEpisodeCommand}">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/icons/minus.png" Stretch="Fill"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Templates:ShadowedTextBox Text="{Binding CurrentEpisode, Mode=TwoWay}" Width="30"/>
+                                    <TextBlock Style="{StaticResource SettingsTextBlock}" Width="Auto" Margin="5, 10, 5, 0" Text="/"/>
+                                    <Templates:ShadowedTextBox Text="{Binding EpisodesInSeason, Mode=TwoWay}" Width="30"/>
+                                    <Button Style="{StaticResource ImageButton}" Command="{Binding IncreaseEpisodeCommand}">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/icons/plus.png" Stretch="Fill"/>
+                                        </Button.Background>
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Current season" Style="{StaticResource SettingsTextBlock}" Width="250"/>
+                                <Templates:ShadowedTextBox Text="{Binding CurrentSeason, Mode=TwoWay}" Height="50" Width="235"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Confirmed seasons" Style="{StaticResource SettingsTextBlock}" Width="250"/>
+                                <Templates:ShadowedTextBox Text="{Binding ConfirmedSeasons, Mode=TwoWay}" Height="50" Width="235"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <DockPanel Height="48">
+                                <TextBlock Style="{StaticResource SettingsTextBlock}" Text="Episodes out on"/>
+                                <ComboBox FontSize="20" Margin="5" SelectedIndex="0">
+                                    <ComboBoxItem Content="Mondays"/>
+                                    <ComboBoxItem Content="Tuesdays"/>
+                                    <ComboBoxItem Content="Wednesdays"/>
+                                    <ComboBoxItem Content="Thursdays"/>
+                                    <ComboBoxItem Content="Fridays"/>
+                                    <ComboBoxItem Content="Saturdays"/>
+                                    <ComboBoxItem Content="Sundays"/>
+                                </ComboBox>
+                            </DockPanel>
+                            <DockPanel Height="48">
+                                <TextBlock DockPanel.Dock="Left" Style="{StaticResource SettingsTextBlock}" Text="Next season out"/>
+                                <DatePicker FontSize="20" Margin="5" SelectedDate="{Binding NextSeasonOutDate}"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid VerticalAlignment="Bottom">
+                        <Button Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Style="{StaticResource ImageButton}" Height="64" Width="64" HorizontalAlignment="Left">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/icons/arrowleft.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Command="{Binding OpenCommand}" Style="{StaticResource ImageButton}" Height="64" Width="64" HorizontalAlignment="Center">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/icons/play.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Command="{Binding ChooseDetailsImageCommand}" Style="{StaticResource ImageButton}" Height="64" Width="64" HorizontalAlignment="Right">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/icons/detailimage.png" Stretch="Fill"/>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+                </DockPanel>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</UserControl>

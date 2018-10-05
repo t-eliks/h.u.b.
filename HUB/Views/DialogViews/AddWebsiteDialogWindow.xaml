@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="HUB.Views.DialogViews.AddWebsiteDialogWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HUB.Views.DialogViews"
+             mc:Ignorable="d" 
+             Height="550" Width="500">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="5, 9"/>
+        </Style>
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+        </Style>
+
+        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+            <Setter Property="Margin" Value="5, 12"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Width" Value="70"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Title"/>
+                <TextBox Text="{Binding Title}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Link"/>
+                <TextBox Text="{Binding Link}"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Description"/>
+            <TextBox Text="{Binding Description}" Height="80" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" TextWrapping="WrapWithOverflow"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
+            <TextBlock Margin="0, 9" Text="Type: "/>
+            <RadioButton IsChecked="{Binding Regular}" Content="Regular"/>
+            <RadioButton IsChecked="{Binding TVShow}" x:Name="TVShowCheckBox" Content="TV Show"/>
+        </StackPanel>
+        <Grid Grid.Row="3">
+            <Grid.Style>
+                <Style>
+                    <Setter Property="Grid.IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=TVShowCheckBox, Path=IsChecked}" Value="True">
+                            <Setter Property="Grid.IsEnabled" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Current season: "/>
+                <TextBlock Text="Current episode: "/>
+                <TextBlock Text="Total episodes in this season: "/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBox Text="{Binding CurrentSeason}" />
+                <TextBox Text="{Binding CurrentEpisode}" />
+                <TextBox Text="{Binding EpisodesInSeason}" />
+            </StackPanel>
+        </Grid>
+        <Button Command="{Binding AddWebsiteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Grid.Row="4" Content="Add website" Width="130" BorderBrush="Transparent" BorderThickness="0" Background="Black"/>
+    </Grid>
+</UserControl>
