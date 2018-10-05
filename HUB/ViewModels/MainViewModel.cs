@@ -155,7 +155,7 @@
                 }
             }
         }
-
+      
         private ObservableCollection<Event> _Events;
 
         public ObservableCollection<Event> Events
