@@ -264,7 +264,7 @@
                         <Image Source="/icons/misc.png"/>
                     </TabItem.Header>
                     <Grid>
-                        <TextBlock Text="Hello"/>
+                        <TextBlock Text="Work In Progress" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72"/>
                     </Grid>
                 </TabItem>
                 <TabItem>
